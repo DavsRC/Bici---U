@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface UserGateway {
 
-    public List<User> getUsers();
     public User addUser();
 }

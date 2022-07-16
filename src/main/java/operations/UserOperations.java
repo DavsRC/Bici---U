@@ -12,19 +12,6 @@ public class UserOperations implements models.user.gateway.UserGateway {
     public static  final List<User> userList = new ArrayList<>();
 
     @Override
-    public List<User> getUsers() {
-        try {
-            boolean size = userList.size() != 0;
-
-            return (size) ? userList : null;
-
-        } catch (Exception exception) {
-            System.out.println("An error was occurred, caused by: " + exception.getMessage());
-        }
-        return null;
-    }
-
-    @Override
     public User addUser() {
         Scanner scanner = new Scanner(System.in);
         String userType = validateUser();
