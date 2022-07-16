@@ -5,7 +5,7 @@ import models.user.User;
 
 import java.util.*;
 
-public class UserGateway implements models.user.gateway.UserGateway {
+public class UserOperations implements models.user.gateway.UserGateway {
 
     private static final String STUDENT = "Student";
     private static final String PROFESSOR = "Professor";
