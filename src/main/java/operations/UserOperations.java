@@ -9,7 +9,7 @@ public class UserOperations implements models.user.gateway.UserGateway {
 
     private static final String STUDENT = "Student";
     private static final String PROFESSOR = "Professor";
-    private final List<User> userList = new ArrayList<>();
+    public static  final List<User> userList = new ArrayList<>();
 
     @Override
     public List<User> getUsers() {

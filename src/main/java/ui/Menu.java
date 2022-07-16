@@ -1,6 +1,8 @@
 package ui;
 
+import models.bici.Bici;
 import models.user.User;
+import operations.BiciOperations;
 import operations.UserOperations;
 
 import java.util.ArrayList;
@@ -8,20 +10,23 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import static operations.UserOperations.userList;
+
 public class Menu {
     Scanner scanner = new Scanner(System.in);
     boolean exit = false;
     int option;
     User user = new User();
     UserOperations userOperations = new UserOperations();
-    List<User> userList = new ArrayList<>();
+    BiciOperations biciOperations = new BiciOperations();
+    Bici bici = new Bici();
 
     public void showMenu(){
         while(!exit){
-            System.out.println(" ___________..........___________" +
+            System.out.println("\n" + "........................." +
                     "\n" + "Bici - U " +
                     "\n" + "1. Register user " +
-                    "\n" + "2. Show patients" +
+                    "\n" + "2. Borrow Bicycle" +
                     "\n" + "3. Appointments" +
                     "\n" + "4. Billing" +
                     "\n" + "5. Medicine Stock" +
@@ -35,7 +40,7 @@ public class Menu {
                         userList.add(user);
                         break;
                     case 2:
-                        System.out.println("2");
+                        biciOperations.borrowBici();
                         break;
                     case 3:
                         System.out.println("3");
