@@ -1,11 +1,11 @@
-package Operations;
+package operations;
 
-import Models.Student;
-import Models.User;
+import models.user.student.Student;
+import models.user.User;
 
 import java.util.*;
 
-public class UserOperations implements IUserOperations {
+public class UserGateway implements models.user.gateway.UserGateway {
 
     private static final String STUDENT = "Student";
     private static final String PROFESSOR = "Professor";

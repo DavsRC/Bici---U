@@ -1,7 +1,4 @@
-import Menu.Menu;
-import Operations.OperationsBici;
-import Operations.UserOperations;
-
+import ui.Menu;
 
 
 public class Main {

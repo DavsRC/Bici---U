@@ -1,10 +1,10 @@
-package Operations;
+package models.user.gateway;
 
-import Models.User;
+import models.user.User;
 
 import java.util.List;
 
-public interface IUserOperations {
+public interface UserGateway {
 
     public List<User> getUsers();
     public User addUser();

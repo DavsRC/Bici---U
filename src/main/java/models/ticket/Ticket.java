@@ -1,9 +1,11 @@
-package Models;
+package models.ticket;
 
+import models.bici.Bici;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import models.user.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

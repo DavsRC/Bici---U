@@ -1,12 +1,13 @@
-package Operations;
+package operations;
 
-import Models.Bici;
+import models.bici.Bici;
+import models.bici.gateway.BiciGateway;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OperationsBici implements IOperationsBici{
+public class OperationsBiciGateway implements BiciGateway {
 
     List<Bici> biciList = new ArrayList<>();
     Bici bici1 = new Bici("BIC-01", "Mountain", "red", true);

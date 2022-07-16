@@ -1,7 +1,7 @@
-package Menu;
+package ui;
 
-import Models.User;
-import Operations.UserOperations;
+import models.user.User;
+import operations.UserGateway;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -13,7 +13,7 @@ public class Menu {
     boolean exit = false;
     int option;
     User user = new User();
-    UserOperations userOperations = new UserOperations();
+    UserGateway userOperations = new UserGateway();
     List<User> userList = new ArrayList<>();
 
     public void showMenu(){

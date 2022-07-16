@@ -1,4 +1,4 @@
-package Models;
+package models.bici;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Bici {
 
-    protected String id;
-    protected String name;
-    protected int age;
-
+    private String id;
+    private String type;
+    private String color;
+    private boolean isLent;
 }
