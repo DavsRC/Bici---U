@@ -123,7 +123,24 @@ public class UserOperations implements IUserOperations {
             }
             number = scanner.nextInt();
         } while (number <= 0);
-        return number;
+        return validateAge(number, scanner);
+    }
+
+    int validateAge(int age, Scanner scanner){
+        return age<18 ? validateMinorAge(scanner) : age;
+    }
+
+    private int validateMinorAge(Scanner scanner) {
+        int age;
+        do {
+            System.out.println("You are not an adult!");
+            while (!scanner.hasNextInt()) {
+                System.out.println("That's not a number!");
+                scanner.next();
+            }
+            age = scanner.nextInt();
+        } while (age < 18);
+        return age;
     }
 
     private String buildingId(Scanner scanner) {
