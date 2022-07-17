@@ -1,10 +1,12 @@
 package operations;
 
+import models.user.User;
 import models.user.gateway.UserGateway;
 import models.user.student.Student;
-import models.user.User;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import static java.util.Objects.isNull;
 import static ui.Menu.showMenu;
@@ -56,6 +58,7 @@ public class UserOperations implements UserGateway {
                 .name(name)
                 .surName(surName)
                 .age(age)
+                .hasDebts(false)
                 .build();
         registerCompleted(user);
         return user;
@@ -108,6 +111,7 @@ public class UserOperations implements UserGateway {
                 .name(name)
                 .surName(surName)
                 .age(age)
+                .hasDebts(false)
                 .build();
         registerCompleted(user);
         return user;

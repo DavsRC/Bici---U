@@ -1,6 +1,9 @@
 package models.ticket;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import models.bici.Bici;
 import models.user.User;
 

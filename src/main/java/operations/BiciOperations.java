@@ -4,12 +4,10 @@ import models.bici.Bici;
 import models.bici.gateway.BiciGateway;
 import models.ticket.Status;
 import models.ticket.Ticket;
-import models.ticket.gateway.TicketGateway;
 import models.user.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
@@ -17,7 +15,7 @@ import static operations.ReadBicyclesFile.biciList;
 import static operations.UserOperations.userList;
 
 
-public class BiciOperations implements BiciGateway, TicketGateway {
+public class BiciOperations implements BiciGateway {
 
 
     private static final String MOUNTAIN = "Mountain";
@@ -147,7 +145,6 @@ public class BiciOperations implements BiciGateway, TicketGateway {
         System.out.println(ticket);
     }
 
-    @Override
     public String generateCode(int count) {
         count += 1;
         return ("T"+"-"+String.format("%03d", count));
