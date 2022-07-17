@@ -1,5 +1,6 @@
 package models.ticket;
 
+import common.CommonMethods;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import models.bici.Bici;
 import models.user.User;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +19,7 @@ import static java.util.Objects.isNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ticket {
+public class Ticket implements CommonMethods, Serializable {
 
     private String code;
     private Bici bici;
@@ -47,5 +49,11 @@ public class Ticket {
 
     private String printEndHour(LocalTime endHour) {
         return isNull(endHour) ? "-" : this.endDate.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
+    @Override
+    public String giveFormat() {
+        return  (code +"," + bici.giveDataToTicket() +"," + user.giveFormat() + "," + date +"," + startDate +"," + endDate +
+                "," + helmet +"," + noDamage +"," + amount +"," + status);
     }
 }

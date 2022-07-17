@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class ReadBicyclesFile {
 
-    static final String FILE = "src/main/resources/bicycles.txt";
     public static List<Bici> biciList = readBicycle();
 
 
@@ -22,7 +21,7 @@ public class ReadBicyclesFile {
         ArrayList<Bici> biciList = new ArrayList<>();
 
         try {
-            File file = new File(FILE);
+            File file = new File("src/main/resources/bicycles.txt");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;

@@ -15,4 +15,8 @@ public class Bici {
     private String type;
     private String color;
     private boolean available;
+
+    public String giveDataToTicket(){
+        return id+","+type+","+color+","+available;
+    }
 }

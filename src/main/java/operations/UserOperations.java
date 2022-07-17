@@ -98,11 +98,11 @@ public class UserOperations implements UserGateway {
         System.out.println("What is the id of the professor");
         id = buildingId(scanner);
         getUserId(id);
-        System.out.println("What is the name of the student");
+        System.out.println("What is the name of the professor");
         name = buildingName(scanner);
-        System.out.println("What is the surname of the student");
+        System.out.println("What is the surname of the professor");
         surName = buildingSurName(scanner);
-        System.out.println("What is the age of the student");
+        System.out.println("What is the age of the professor");
         age = buildingAge(scanner);
         getUserAge(age);
         User user = Student.builder()

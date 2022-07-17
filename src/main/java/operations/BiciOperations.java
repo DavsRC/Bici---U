@@ -6,22 +6,27 @@ import models.ticket.Status;
 import models.ticket.Ticket;
 import models.user.User;
 
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
 import static operations.ReadBicyclesFile.biciList;
+import static operations.TicketsOperations.saveTicket;
 import static operations.UserOperations.userList;
 
 
-public class BiciOperations implements BiciGateway {
+
+public class BiciOperations implements BiciGateway, Serializable {
 
 
     private static final String MOUNTAIN = "Mountain";
     private static final String ROAD = "Road";
     public static User user;
     public static Bici bici;
+    public static Ticket ticket;
     public static int count;
 
     @Override
@@ -131,7 +136,7 @@ public class BiciOperations implements BiciGateway {
         String code = generateCode(count);
         LocalDate date = LocalDate.now();
         LocalTime startDate = LocalTime.now();
-        Ticket ticket = Ticket.builder()
+        ticket = Ticket.builder()
                 .code(code)
                 .bici(bici)
                 .user(user)
@@ -143,6 +148,7 @@ public class BiciOperations implements BiciGateway {
         System.out.println("............................");
         System.out.println("The ticket " + ticket.getCode() + " has been generated!");
         System.out.println(ticket);
+        saveTicket(ticket);
     }
 
     public String generateCode(int count) {
