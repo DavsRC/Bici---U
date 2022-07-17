@@ -9,6 +9,7 @@ import models.user.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
@@ -16,11 +17,14 @@ import static operations.ReadBicyclesFile.biciList;
 import static operations.UserOperations.userList;
 
 
-public class BiciOperations implements BiciGateway {
+public class BiciOperations implements BiciGateway, TicketGateway {
 
 
     private static final String MOUNTAIN = "Mountain";
     private static final String ROAD = "Road";
+    public static User user;
+    public static Bici bici;
+    public static int count;
 
     @Override
     public void borrowBici() {
@@ -31,13 +35,13 @@ public class BiciOperations implements BiciGateway {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the user id: ");
         String id = scanner.nextLine();
-        User user = findUser(id);
+        user = findUser(id);
         checkUser(user);
     }
 
     private void getBici() {
         String biciType = getBiciType();
-        Bici bici = findBici(biciType);
+        bici = findBici(biciType);
         checkBici(bici);
     }
 
@@ -108,6 +112,7 @@ public class BiciOperations implements BiciGateway {
         } else {
             biciFound(bici);
             bici.setAvailable(false);
+            generateTicket(bici, user);
         }
     }
 
@@ -122,5 +127,29 @@ public class BiciOperations implements BiciGateway {
         System.out.println("ID: " + bici.getId());
         System.out.println("Type: " + bici.getType());
         System.out.println("Color: " + bici.getColor());
+    }
+
+    public void generateTicket(Bici bici, User user) {
+        String code = generateCode(count);
+        LocalDate date = LocalDate.now();
+        LocalTime startDate = LocalTime.now();
+        Ticket ticket = Ticket.builder()
+                .code(code)
+                .bici(bici)
+                .user(user)
+                .startDate(startDate)
+                .date(date)
+                .build();
+        ticket.setStatus(Status.ACTIVE);
+        count +=1;
+        System.out.println("............................");
+        System.out.println("The ticket " + ticket.getCode() + " has been generated!");
+        System.out.println(ticket);
+    }
+
+    @Override
+    public String generateCode(int count) {
+        count += 1;
+        return ("T"+"-"+String.format("%03d", count));
     }
 }

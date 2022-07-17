@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 public class User {
 
     protected String id;
+    protected String dni;
     protected String name;
     protected String surName;
     protected int age;
+    private boolean hasDebts;
 
 }

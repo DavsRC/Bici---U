@@ -1,11 +1,15 @@
 package operations;
 
+import models.user.gateway.UserGateway;
 import models.user.student.Student;
 import models.user.User;
 
 import java.util.*;
 
-public class UserOperations implements models.user.gateway.UserGateway {
+import static java.util.Objects.isNull;
+import static ui.Menu.showMenu;
+
+public class UserOperations implements UserGateway {
 
     private static final String STUDENT = "Student";
     private static final String PROFESSOR = "Professor";
@@ -38,20 +42,49 @@ public class UserOperations implements models.user.gateway.UserGateway {
         int age;
         System.out.println("What is the id of the student");
         id = buildingId(scanner);
+        getUserId(id);
         System.out.println("What is the name of the student");
         name = buildingName(scanner);
-        System.out.println("What is the age of the student");
+        System.out.println("What is the surname of the student");
         surName = buildingSurName(scanner);
         System.out.println("What is the age of the student");
         age = buildingAge(scanner);
+        getUserAge(age);
         User user = Student.builder()
                 .id("S-" + id)
+                .dni(id)
                 .name(name)
                 .surName(surName)
                 .age(age)
                 .build();
         registerCompleted(user);
         return user;
+    }
+
+    private void getUserAge(int age) {
+        if(validateUserAge(age)){
+            System.out.println("The age is valid");
+        }else {
+            System.out.println("You are not an adult. Come back when you are 18 ;)");
+            showMenu();
+        }
+    }
+
+    private void getUserId(String id) {
+        if(validateUserId(id)){
+            userDoesNotExist();
+        }else {
+            userExists();
+        }
+    }
+
+    private void userDoesNotExist() {
+        System.out.println("The user doesn't exist yet");
+    }
+
+    private void userExists() {
+        System.out.println("The user already exists");
+        showMenu();
     }
 
     private User getProfessor(Scanner scanner) {
@@ -61,14 +94,17 @@ public class UserOperations implements models.user.gateway.UserGateway {
         int age;
         System.out.println("What is the id of the professor");
         id = buildingId(scanner);
-        System.out.println("What is the name of the professor");
+        getUserId(id);
+        System.out.println("What is the name of the student");
         name = buildingName(scanner);
-        System.out.println("What is the age of the student");
+        System.out.println("What is the surname of the student");
         surName = buildingSurName(scanner);
-        System.out.println("What is the age of the professor");
+        System.out.println("What is the age of the student");
         age = buildingAge(scanner);
+        getUserAge(age);
         User user = Student.builder()
                 .id("P-" + id)
+                .dni(id)
                 .name(name)
                 .surName(surName)
                 .age(age)
@@ -97,16 +133,24 @@ public class UserOperations implements models.user.gateway.UserGateway {
         return id;
     }
 
+
+    private boolean validateUserId(String id){
+        User user = userList.stream().filter(user1 -> id.equals(user1.getDni())).findFirst().orElse(null);
+        return isNull(user);
+    }
+
+    private boolean validateUserAge(int age){
+        return !(age < 18);
+    }
+
     private String buildingName(Scanner scanner) {
         String name;
-        System.out.println("Introduce the name");
         name = scanner.nextLine();
         return name;
     }
 
     private String buildingSurName(Scanner scanner) {
         String surName;
-        System.out.println("Introduce the surname");
         surName = scanner.nextLine();
         return surName;
     }
@@ -121,24 +165,7 @@ public class UserOperations implements models.user.gateway.UserGateway {
             }
             number = scanner.nextInt();
         } while (number <= 0);
-        return validateAge(number, scanner);
-    }
-
-    int validateAge(int age, Scanner scanner) {
-        return age < 18 ? validateMinorAge(scanner) : age;
-    }
-
-    private int validateMinorAge(Scanner scanner) {
-        int age;
-        do {
-            System.out.println("You are not an adult!");
-            while (!scanner.hasNextInt()) {
-                System.out.println("That's not a number!");
-                scanner.next();
-            }
-            age = scanner.nextInt();
-        } while (age < 18);
-        return age;
+        return number;
     }
 
     private void registerCompleted(User user) {

@@ -2,6 +2,6 @@ package models.ticket.gateway;
 
 public interface TicketGateway {
 
-    String generateCode(int count, String type);
+    String generateCode(int count);
 
 }
