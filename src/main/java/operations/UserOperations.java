@@ -9,7 +9,7 @@ public class UserOperations implements models.user.gateway.UserGateway {
 
     private static final String STUDENT = "Student";
     private static final String PROFESSOR = "Professor";
-    public static  final List<User> userList = new ArrayList<>();
+    public static final List<User> userList = new ArrayList<>();
 
     @Override
     public User addUser() {
@@ -18,63 +18,63 @@ public class UserOperations implements models.user.gateway.UserGateway {
         return (userType.equals(STUDENT)) ? getStudent(scanner) : getProfessor(scanner);
     }
 
+    private String validateUser() {
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+        System.out.println("What is the type of user that you will create?");
+        do {
+            System.out.println("Please select");
+            System.out.println("1. Student");
+            System.out.println("2. Professor");
+            option = validateUserInput(scanner, option);
+        } while (option != 1 && option != 2);
+        return validateId(option);
+    }
+
     private User getStudent(Scanner scanner) {
         String id;
         String name;
+        String surName;
         int age;
         System.out.println("What is the id of the student");
         id = buildingId(scanner);
         System.out.println("What is the name of the student");
         name = buildingName(scanner);
         System.out.println("What is the age of the student");
+        surName = buildingSurName(scanner);
+        System.out.println("What is the age of the student");
         age = buildingAge(scanner);
         User user = Student.builder()
                 .id("S-" + id)
                 .name(name)
+                .surName(surName)
                 .age(age)
                 .build();
         registerCompleted(user);
         return user;
-    }
-
-    private void registerCompleted(User user) {
-        System.out.println("¡Register completed!");
-        System.out.println(" ");
-        System.out.println("ID: " + user.getId());
-        System.out.println("Name: " + user.getName());
-        System.out.println("Age: " + user.getAge());
     }
 
     private User getProfessor(Scanner scanner) {
         String id;
         String name;
+        String surName;
         int age;
         System.out.println("What is the id of the professor");
         id = buildingId(scanner);
         System.out.println("What is the name of the professor");
         name = buildingName(scanner);
+        System.out.println("What is the age of the student");
+        surName = buildingSurName(scanner);
         System.out.println("What is the age of the professor");
         age = buildingAge(scanner);
         User user = Student.builder()
                 .id("P-" + id)
                 .name(name)
+                .surName(surName)
                 .age(age)
                 .build();
         registerCompleted(user);
         return user;
-    }
-
-    private String validateUser() {
-        Scanner scanner = new Scanner(System.in);
-        int option = 0;
-        System.out.println("What is the type of user that you will create?");
-            do {
-                System.out.println("Please select");
-                System.out.println("1. Student");
-                System.out.println("2. Professor");
-                option = validateUserInput(scanner, option);
-            } while (option != 1 && option != 2);
-        return validateId(option);
     }
 
     private int validateUserInput(Scanner scanner, int option) {
@@ -91,11 +91,24 @@ public class UserOperations implements models.user.gateway.UserGateway {
         return option == 1 ? STUDENT : PROFESSOR;
     }
 
+    private String buildingId(Scanner scanner) {
+        String id;
+        id = scanner.nextLine();
+        return id;
+    }
+
     private String buildingName(Scanner scanner) {
         String name;
         System.out.println("Introduce the name");
         name = scanner.nextLine();
         return name;
+    }
+
+    private String buildingSurName(Scanner scanner) {
+        String surName;
+        System.out.println("Introduce the surname");
+        surName = scanner.nextLine();
+        return surName;
     }
 
     private int buildingAge(Scanner scanner) {
@@ -111,8 +124,8 @@ public class UserOperations implements models.user.gateway.UserGateway {
         return validateAge(number, scanner);
     }
 
-    int validateAge(int age, Scanner scanner){
-        return age<18 ? validateMinorAge(scanner) : age;
+    int validateAge(int age, Scanner scanner) {
+        return age < 18 ? validateMinorAge(scanner) : age;
     }
 
     private int validateMinorAge(Scanner scanner) {
@@ -128,10 +141,11 @@ public class UserOperations implements models.user.gateway.UserGateway {
         return age;
     }
 
-    private String buildingId(Scanner scanner) {
-        String id;
-        id = scanner.nextLine();
-        return id;
+    private void registerCompleted(User user) {
+        System.out.println("¡Register completed!");
+        System.out.println(" ");
+        System.out.println("ID: " + user.getId());
+        System.out.println("Name: " + user.getName() + " " + user.getSurName());
+        System.out.println("Age: " + user.getAge());
     }
-
 }

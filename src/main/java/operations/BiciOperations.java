@@ -19,26 +19,50 @@ public class BiciOperations implements BiciGateway {
 
     @Override
     public void borrowBici() {
+        getUser();
+        getBici();
+    }
+
+    private void getUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the user id: ");
         String id = scanner.nextLine();
         User user = findUser(id);
         checkUser(user);
+    }
+
+    private void getBici() {
         String biciType = getBiciType();
         Bici bici = findBici(biciType);
         checkBici(bici);
-        bici.setAvailable(false);
     }
 
-    private Bici findBici(String type) {
-        return biciList.stream().filter(bici -> isAvailable(type, bici)).findFirst().orElse(null);
+    private User findUser(String id) {
+        return userList.stream().filter(user1 -> id.equals(user1.getId())).findFirst().orElse(null);
     }
 
-    private static boolean isAvailable(String type, Bici bici) {
-        return bici.getType().equals(type) && bici.isAvailable();
+    private void checkUser(User user){
+        if (isNull(user)) {
+            userNotFound();
+        } else {
+            userFound(user);
+        }
     }
 
-    public String getBiciType(){
+    private void userNotFound(){
+        System.out.println("The user hasn't been found");
+    }
+
+    private void userFound(User user){
+        System.out.println(".......................");
+        System.out.println("The user has been found");
+        System.out.println(" ");
+        System.out.println("ID: " + user.getId());
+        System.out.println("ID: " + user.getName());
+        System.out.println("ID: " + user.getAge());
+    }
+
+    private String getBiciType(){
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         System.out.println("Choose a bicycle mountain or road?");
@@ -65,31 +89,22 @@ public class BiciOperations implements BiciGateway {
         return option == 1 ? MOUNTAIN : ROAD;
     }
 
-    private User findUser(String id) {
-        return userList.stream().filter(user1 -> id.equals(user1.getId())).findFirst().orElse(null);
+    private Bici findBici(String type) {
+        return biciList.stream().filter(bici -> isAvailable(type, bici)).findFirst().orElse(null);
     }
 
-    public void checkUser(User user){
-        if (isNull(user)) {
-            userNotFound();
-        } else {
-            userFound(user);
-        }
+    private boolean isAvailable(String type, Bici bici) {
+        return bici.getType().equals(type) && bici.isAvailable();
     }
 
-    public void checkBici(Bici bici){
+    private void checkBici(Bici bici){
         if (isNull(bici)) {
             biciNotFound();
         } else {
             biciFound(bici);
+            bici.setAvailable(false);
         }
     }
-
-    private void userNotFound(){
-        System.out.println("The user hasn't been found");
-    }
-
-
 
     private void biciNotFound(){
         System.out.println("The is no bicycles available.");
@@ -103,14 +118,4 @@ public class BiciOperations implements BiciGateway {
         System.out.println("ID: " + bici.getType());
         System.out.println("ID: " + bici.getColor());
     }
-
-    private void userFound(User user){
-        System.out.println(".......................");
-        System.out.println("The user has been found");
-        System.out.println(" ");
-        System.out.println("ID: " + user.getId());
-        System.out.println("ID: " + user.getName());
-        System.out.println("ID: " + user.getAge());
-    }
-
 }

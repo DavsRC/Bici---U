@@ -13,6 +13,7 @@ public class User {
 
     protected String id;
     protected String name;
+    protected String surName;
     protected int age;
 
 }
