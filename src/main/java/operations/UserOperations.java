@@ -66,27 +66,25 @@ public class UserOperations implements models.user.gateway.UserGateway {
 
     private String validateUser() {
         Scanner scanner = new Scanner(System.in);
-
         int option = 0;
-
         System.out.println("What is the type of user that you will create?");
-        try {
             do {
                 System.out.println("Please select");
                 System.out.println("1. Student");
                 System.out.println("2. Professor");
-                if (scanner.hasNextInt()) {
-                    option = scanner.nextInt();
-                } else {
-                    System.out.println("Please, select a correct number");
-                    scanner.next();
-                }
+                option = validateUserInput(scanner, option);
             } while (option != 1 && option != 2);
-        } catch (InputMismatchException exception) {
-            System.out.println("please introduce a number");
+        return validateId(option);
+    }
+
+    private int validateUserInput(Scanner scanner, int option) {
+        if (scanner.hasNextInt()) {
+            option = scanner.nextInt();
+        } else {
+            System.out.println("Please, select a correct number");
             scanner.next();
         }
-        return validateId(option);
+        return option;
     }
 
     private String validateId(int option) {

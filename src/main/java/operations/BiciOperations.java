@@ -11,15 +11,45 @@ import static operations.UserOperations.userList;
 
 public class BiciOperations implements BiciGateway {
 
-    Scanner scanner = new Scanner(System.in);
 
+    private static final String MOUNTAIN = "mountain";
+    private static final String ROAD = "road";
 
     @Override
     public void borrowBici() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the user id: ");
         String id = scanner.nextLine();
         User user = findUser(id);
         checkUser(user);
+        String biciType = getBiciType();
+    }
+
+    public String getBiciType(){
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+        System.out.println("Choose a bicycle mountain or road?");
+        do{
+            System.out.println("Please select");
+            System.out.println("1. Mountain ");
+            System.out.println("2. Road");
+            option = validateUserInput(scanner, option);
+        }while (option != 1 && option != 2);
+        return validateBiciType(option);
+    }
+
+    private int validateUserInput(Scanner scanner, int option) {
+        if (scanner.hasNextInt()) {
+            option = scanner.nextInt();
+        } else {
+            System.out.println("Please, select a correct number");
+            scanner.next();
+        }
+        return option;
+    }
+
+    private String validateBiciType(int option) {
+        return option == 1 ? MOUNTAIN : ROAD;
     }
 
     private User findUser(String id) {

@@ -14,5 +14,5 @@ public class Bici {
     private String id;
     private String type;
     private String color;
-    private boolean isLent;
+    private boolean available;
 }
