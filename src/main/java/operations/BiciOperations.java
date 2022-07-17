@@ -2,8 +2,13 @@ package operations;
 
 import models.bici.Bici;
 import models.bici.gateway.BiciGateway;
+import models.ticket.Status;
+import models.ticket.Ticket;
+import models.ticket.gateway.TicketGateway;
 import models.user.User;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
@@ -20,7 +25,6 @@ public class BiciOperations implements BiciGateway {
     @Override
     public void borrowBici() {
         getUser();
-        getBici();
     }
 
     private void getUser() {
@@ -46,6 +50,7 @@ public class BiciOperations implements BiciGateway {
             userNotFound();
         } else {
             userFound(user);
+            getBici();
         }
     }
 
@@ -115,7 +120,7 @@ public class BiciOperations implements BiciGateway {
         System.out.println("The Bicycle has been chosen! ");
         System.out.println(" ");
         System.out.println("ID: " + bici.getId());
-        System.out.println("ID: " + bici.getType());
-        System.out.println("ID: " + bici.getColor());
+        System.out.println("Type: " + bici.getType());
+        System.out.println("Color: " + bici.getColor());
     }
 }
